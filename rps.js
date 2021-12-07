@@ -38,18 +38,52 @@ function playRound(playerSelection, computerSelection) {
     
 }
 
-function game() {
-    for (let i = 0; i <5; i++) {
-        let computerSelection = computerPlay()
-        let playerSelectionBrute = prompt('Choose rock, paper, or scissors')
-        let playerSelection = playerSelectionBrute.toLowerCase()
-        playRound(playerSelection, computerSelection)
-        console.log(`Wins = ${wins}, Losses = ${losses}, Draws = ${draws}`)
-    }
-    if (wins>losses) {
-        console.log('You win')
-    }
-    else {
-        console.log('Computer overlord wins!')
-    }
+let rock = document.querySelector('.rock')
+let paper = document.querySelector('.paper')
+let scissors = document.querySelector('.scissors')
+let clear = document.querySelector('.clear')
+
+let winsDisplay = document.querySelector('.wins')
+let lossesDisplay = document.querySelector('.losses')
+
+function displayContent() { 
+    winsDisplay.textContent = `Wins = ${wins}`
+    lossesDisplay.textContent = `Losses = ${losses}`
 }
+
+
+function checkIfWon() {
+    if (losses == 5) {
+        alert('You lost!')
+        wins = 0
+        losses = 0
+        displayContent()
+    }
+    else if (wins == 5) {
+        alert('You won!')
+        wins = 0
+        losses = 0
+        displayContent()
+    }    
+}
+
+rock.addEventListener('click', function() {
+    playRound('rock', computerPlay())
+    displayContent()
+    checkIfWon()
+})
+paper.addEventListener('click', function() {
+    playRound('paper', computerPlay())
+    displayContent()
+    checkIfWon()
+})
+scissors.addEventListener('click', function() {
+    playRound('scissors', computerPlay())
+    displayContent()
+    checkIfWon()
+})
+clear.addEventListener('click', function() {
+    wins = 0
+    losses = 0
+    displayContent()
+})
